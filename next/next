@@ -1,0 +1,11 @@
+create agent
+edit existing agent
+delete agent
+
+create profile
+edit existing profile
+delete profile
+assign profile to agent
+
+set agent to profile schedule
+
