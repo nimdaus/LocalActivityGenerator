@@ -2,14 +2,12 @@ import requests
 import pprint
 import time
 import random
-import psutil
 
 ip_address_port = 'http://127.0.0.1:5000/'
 pp = pprint.PrettyPrinter()
 headers = {'Content-Type': 'application/json'}
 profile_change_hours = 2
-#psutil.disk_partitions()
-#psutil.disk_usage('/')
+
 
 profile_1 = '{"id": 1, "jsonrpc": "2.0","method":"update_config","params":{"allow_windows_updates": false, "log_level": "INFO", "agent_version": "latest", "cpu_load": 10, "dtc_config": {}, "agent_install_args": [], "volumes": {"C": {"data_churn_rate": 0.1, "path": "apogee_data", "max_fragment_blocks": 512, "initial_usage": 22.0, "data_growth_rate": 0.01, "min_fragment_blocks": 128, "static_io_load": 2.0, "fragment": false, "database": {"updates_per_hour": 0, "queries_per_hour": 0, "inserts_per_hour": 0}}}, "ram_load": 5, "extra_ca_cert": "", "database_version": "", "agent_config": {}, "agent_type": "", "dtc_rmm_token": "", "format_volumes": [], "agent_auto_upgrade": false}}'
 
