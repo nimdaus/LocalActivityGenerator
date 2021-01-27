@@ -37,7 +37,7 @@ if os.path.exists(f"{os.getcwd()}"+"/Binary/data-generator.exe"):
 else:
 	print("Missing Generator!")
 
-profile = {"id": 1, "jsonrpc": "2.0","method":"update_config","params":{"allow_windows_updates": false, "log_level": "INFO", "agent_version": "latest", "cpu_load": 1, "dtc_config": {}, "agent_install_args": [], "volumes": {"C": {"data_churn_rate": 0.1, "path": "apogee_data", "max_fragment_blocks": 512, "initial_usage": 1, "data_growth_rate": 1, "min_fragment_blocks": 128, "static_io_load": 1, "fragment": false, "database": {"updates_per_hour": 0, "queries_per_hour": 0, "inserts_per_hour": 0}}}, "ram_load": 1, "extra_ca_cert": "", "database_version": "", "agent_config": {}, "agent_type": "", "dtc_rmm_token": "", "format_volumes": [], "agent_auto_upgrade": false}}
+profile = {"id": 1, "jsonrpc": "2.0","method":"update_config","params":{"allow_windows_updates": False, "log_level": "INFO", "agent_version": "latest", "cpu_load": 1, "dtc_config": {}, "agent_install_args": [], "volumes": {"C": {"data_churn_rate": 0.1, "path": "scratch", "max_fragment_blocks": 512, "initial_usage": 1, "data_growth_rate": 1, "min_fragment_blocks": 128, "static_io_load": 1, "fragment": False, "database": {"updates_per_hour": 0, "queries_per_hour": 0, "inserts_per_hour": 0}}}, "ram_load": 1, "extra_ca_cert": "", "database_version": "", "agent_config": {}, "agent_type": "", "dtc_rmm_token": "", "format_volumes": [], "agent_auto_upgrade": False}}
 volume_data = {}
 
 while True:
@@ -48,17 +48,18 @@ while True:
 			elif disk.mountpoint in skip_drives:
 				continue
 			else:
+				print("ready")
 				disk_total = psutil.disk_usage(disk.mountpoint)[0]
 				disk_used = psutil.disk_usage(disk.mountpoint)[1]
 				set_used_space = ((wanted_used_percent / 100) * disk_total) / (1024 ** 3)
-				list_of_change_rates = np.linspace(minimum_change_rate_percent, maximum_change_rate_percent, number_of_profiles)
+				list_of_change_rates = np.linspace(minimum_change_rate_percent, maximum_change_rate_percent, number_of_change_profiles)
 				new_change_rate_percent = random.choice(list_of_change_rates)
 				new_change = ((new_change_rate_percent / 100) * disk_used) / (1024 ** 3)
-				list_of_add_rates = np.linspace(minimum_add_rate_percent, maximum_add_rate_percent, number_of_profiles)
+				list_of_add_rates = np.linspace(minimum_add_rate_percent, maximum_add_rate_percent, number_of_change_profiles)
 				new_add_rate_percent = random.choice(list_of_add_rates)
 				new_add = ((new_change_rate_percent / 100) * disk_used) / (1024 ** 3)
 				#mount = f"{psutil.disk_partitions()[0].mountpoint}"[0]
-				volume_data[f"{disk.mountpoint}"] =  {"data_churn_rate": 0.1, "path": "scratch", "max_fragment_blocks": 512, "initial_usage": 1, "data_growth_rate": 1, "min_fragment_blocks": 128, "static_io_load": 1, "fragment": false, "database": {"updates_per_hour": 0, "queries_per_hour": 0, "inserts_per_hour": 0}}
+				volume_data[f"{disk.mountpoint}"] =  {"data_churn_rate": 0.1, "path": "scratch", "max_fragment_blocks": 512, "initial_usage": 1, "data_growth_rate": 1, "min_fragment_blocks": 128, "static_io_load": 1, "fragment": False, "database": {"updates_per_hour": 0, "queries_per_hour": 0, "inserts_per_hour": 0}}
 				volume_data[f"{disk.mountpoint}"]["data_churn_rate"] = new_change
 				volume_data[f"{disk.mountpoint}"]["initial_usage"] = set_used_space
 				volume_data[f"{disk.mountpoint}"]["data_growth_rate"] = new_add
@@ -67,12 +68,14 @@ while True:
 				else:
 					os.mkdir(f"{disk.mountpoint}"+"/scratch")
 				profile["params"]["volumes"] = volume_data
-				list_of_cpu_load = np.linspace(minimum_cpu_load_percent, maximum_cpu_load_percent, number_of_profiles)
+				print("volume")
+				list_of_cpu_load = np.linspace(minimum_cpu_load_percent, maximum_cpu_load_percent, number_of_change_profiles)
 				new_cpu_load = random.choice(list_of_cpu_load)
 				profile["params"]["cpu_load"] = new_cpu_load
-				list_of_ram_load = np.linspace(minimum_ram_load_percent, maximum_ram_load_percent, number_of_profiles)
+				list_of_ram_load = np.linspace(minimum_ram_load_percent, maximum_ram_load_percent, number_of_change_profiles)
 				new_ram_load = random.choice(list_of_ram_load)
 				profile["params"]["ram_load"] = new_ram_load
+				print("system")
 				if disk == psutil.disk_partitions()[-1]:
 					profile["params"]["volumes"] = volume_data
 					print("Changing Usage Profile!")
