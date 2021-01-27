@@ -1,8 +1,8 @@
-### Local Activity Generator aka 'LAG' ###
+## Local Activity Generator aka 'LAG' ##
 
 > Stupid name for a useful project.
 
-# Functions #
+#### Functions ####
 
 * Auto fill Hard Drive
 
