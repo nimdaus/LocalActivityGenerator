@@ -54,16 +54,21 @@ while True:
 				disk_used = psutil.disk_usage(disk.mountpoint).used
 				set_used_space = ((wanted_used_percent / 100) * disk_total) / (1024 ** 3)
 				list_of_change_rates = np.linspace(minimum_change_rate_percent, maximum_change_rate_percent, number_of_change_profiles)
+				print(list_of_change_rates)
 				new_change_rate_percent = random.choice(list_of_change_rates)
 				new_change = ((new_change_rate_percent / 100) * disk_used) / (1024 ** 3)
 				list_of_add_rates = np.linspace(minimum_add_rate_percent, maximum_add_rate_percent, number_of_change_profiles)
+				print(list_of_add_rates)
 				new_add_rate_percent = random.choice(list_of_add_rates)
 				new_add = ((new_change_rate_percent / 100) * disk_used) / (1024 ** 3)
+				print("dicts")
 				volume_data[f"{disk.mountpoint}"] =  {"data_churn_rate": 0.1, "path": "scratch", "max_fragment_blocks": 512, "initial_usage": 1, "data_growth_rate": 1, "min_fragment_blocks": 128, "static_io_load": 1, "fragment": False, "database": {"updates_per_hour": 0, "queries_per_hour": 0, "inserts_per_hour": 0}}
 				volume_data[f"{disk.mountpoint}"]["data_churn_rate"] = new_change
 				volume_data[f"{disk.mountpoint}"]["initial_usage"] = set_used_space
 				volume_data[f"{disk.mountpoint}"]["data_growth_rate"] = new_add
+				print("fail")
 				if os.path.exists(f"{disk.mountpoint}"+"/scratch"):
+					print("don't use continue you tool")
 					continue
 				else:
 					os.mkdir(f"{disk.mountpoint}"+"/scratch")
