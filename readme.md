@@ -4,7 +4,7 @@
 
 Enable diskperf in TaskManager if you haven't already; useful to monitor changes to system.
 
-    - diskperf -Y
+    - From elevated command prompt (aka "Win+R", type cmd and hit enter), run "diskperf -Y"
 
 **Step 2:**
 
