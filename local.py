@@ -39,6 +39,7 @@ else:
 
 profile = {"id": 1, "jsonrpc": "2.0","method":"update_config","params":{"allow_windows_updates": False, "log_level": "INFO", "agent_version": "latest", "cpu_load": 1, "dtc_config": {}, "agent_install_args": [], "volumes": {"C": {"data_churn_rate": 0.1, "path": "scratch", "max_fragment_blocks": 512, "initial_usage": 1, "data_growth_rate": 1, "min_fragment_blocks": 128, "static_io_load": 1, "fragment": False, "database": {"updates_per_hour": 0, "queries_per_hour": 0, "inserts_per_hour": 0}}}, "ram_load": 1, "extra_ca_cert": "", "database_version": "", "agent_config": {}, "agent_type": "", "dtc_rmm_token": "", "format_volumes": [], "agent_auto_upgrade": False}}
 volume_data = {}
+counter = 0
 
 while True:
 	try:
@@ -48,6 +49,7 @@ while True:
 			elif disk.mountpoint in skip_drives:
 				continue
 			else:
+				coutner =+ 1
 				print("ready")
 				print(psutil.disk_usage(disk.mountpoint).total)
 				disk_total = psutil.disk_usage(disk.mountpoint).total
@@ -94,6 +96,9 @@ while True:
 						time.sleep(change_every_x_hours*60*60)
 					else:
 						print("Bad Response :(")
+				else:
+					print("loop complete")
+					continue
 	except requests.RequestException as e:
 		print("Request Failed: %s" % e)
 		time.sleep(1)
