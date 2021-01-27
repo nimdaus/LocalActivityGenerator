@@ -69,7 +69,7 @@ while True:
 				print("fail")
 				if os.path.exists(f"{disk.mountpoint}"+"/scratch"):
 					print("don't use continue you tool")
-					continue
+					pass
 				else:
 					os.mkdir(f"{disk.mountpoint}"+"/scratch")
 				profile["params"]["volumes"] = volume_data
