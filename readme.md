@@ -2,6 +2,9 @@
 
 > Stupid name for a useful project.
 
+#### >> TIME'S UP LET'S DO THIS: [Install WIKI](https://github.com/nimdaus/LocalActivityGenerator/wiki/Install) ####
+
+
 ### Functions ###
 
 * Auto fill Hard Drive
