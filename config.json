@@ -1,0 +1,20 @@
+{
+    "preferences":{
+        "number_of_change_profiles": 4,
+        "change_every_x_hours": 4
+    },
+    "system":{
+    "min_cpu_load": 10,
+    "max_cpu_load": 40,
+    "min_ram_load": 10,
+    "max_ram_load": 60
+    },
+    "volumes":{
+        "skip_drives": ["D:\\", "E:\\"],
+        "set_used_space_%": 40,
+        "min_change_%": 3,
+        "max_change_%": 6,
+        "min_add_%": 1,
+        "max_add_%": 2
+    }
+}
