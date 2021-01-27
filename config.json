@@ -4,10 +4,10 @@
         "change_every_x_hours": 4
     },
     "system":{
-    "min_cpu_load": 10,
-    "max_cpu_load": 40,
-    "min_ram_load": 10,
-    "max_ram_load": 60
+    "min_cpu_load_%": 10,
+    "max_cpu_load_%": 40,
+    "min_ram_load_%": 10,
+    "max_ram_load_%": 60
     },
     "volumes":{
         "skip_drives": ["D:\\", "E:\\"],
