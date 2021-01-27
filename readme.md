@@ -1,53 +1,22 @@
-## Setup
+## Local Activity Generator aka 'LAG' ##
 
-**Step 1:**
+> Stupid name for a useful project.
 
-Let's enable diskperf for an easier time...
+### Functions ###
 
-    - From elevated cmd, "diskperf -Y"
+* Auto fill Hard Drive
 
-**Step 2:**
+* Automatic Change Data
 
-Install python from [python.org](https://www.python.org/downloads/)
+* Automatic Add Data
 
-![Python Install Demo](install_assets/demo.gif)
+* Automatic CPU Load
 
-**Step 3:**
+* Automatic RAM Load
 
-Download and unpack from git repo
+* Manages scheduling AND stepping
 
-    - Move downloaded folder somewhere permanent
+* CURRENTLY ONLY "24 HOUR" - simple improvement I just haven't got to yet.
 
-    - In Binary folder, unpack Generator with secret password
+![meme](/doc_asset/LAG.jpg)
 
-**Step 4:**
-
-Install PIP and Dependencies
-
-    - [Download PIP](https://bootstrap.pypa.io/get-pip.py)
-
-    - cd in elevated powershell to download dir
-
-    - "python get-pip.py"
-
-    - cd in elevated power shell to downloaded git repo
-
-    - python -m pip install -r requirements.txt
-
-**Step 5:**
-
-Run script!
-
-    - "python -i local.py"
-
-**Step X:**
-
-Sit back and have a cuppa :coffee:
-
-**Step Y:**
-
-What the heck is an "elevated prompt"?
-
-    - Hit "Win + R" and type either powershell __or__ cmd
-
-    - Magic an "As Administrator" prompt :)
