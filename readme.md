@@ -2,7 +2,7 @@
 
 > Stupid name for a useful project.
 
-#### Functions ####
+### Functions ###
 
 * Auto fill Hard Drive
 
