@@ -8,7 +8,7 @@ Enable diskperf in TaskManager if you haven't already; useful to monitor changes
 
 **Step 2:**
 
-Install python from python.org
+Install python from [python.org](python.org)
 
 ![Python Install Demo](install_assets/demo.gif)
 
