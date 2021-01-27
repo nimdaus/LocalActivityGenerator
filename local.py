@@ -12,6 +12,7 @@ headers = {'Content-Type': 'application/json'}
 if os.path.exists(f"{os.getcwd()}"+"/config.json"):
 		with open(f"{os.getcwd()}"+"/config.json", "r") as f:
 			config = json.load(f)
+
 	wanted_used_percent = config["volumes"]["set_used_space_%"]
 	minimum_change_rate_percent = config["volumes"]["min_change_%"]
 	maximum_change_rate_percent = config["volumes"]["max_change_%"]
@@ -37,6 +38,7 @@ else:
 	print("Missing Generator!")
 
 profile = {"id": 1, "jsonrpc": "2.0","method":"update_config","params":{"allow_windows_updates": false, "log_level": "INFO", "agent_version": "latest", "cpu_load": 1, "dtc_config": {}, "agent_install_args": [], "volumes": {"C": {"data_churn_rate": 0.1, "path": "apogee_data", "max_fragment_blocks": 512, "initial_usage": 1, "data_growth_rate": 1, "min_fragment_blocks": 128, "static_io_load": 1, "fragment": false, "database": {"updates_per_hour": 0, "queries_per_hour": 0, "inserts_per_hour": 0}}}, "ram_load": 1, "extra_ca_cert": "", "database_version": "", "agent_config": {}, "agent_type": "", "dtc_rmm_token": "", "format_volumes": [], "agent_auto_upgrade": false}}
+volume_data = {}
 
 while True:
 	try:
@@ -55,20 +57,16 @@ while True:
 				list_of_add_rates = np.linspace(minimum_add_rate_percent, maximum_add_rate_percent, number_of_profiles)
 				new_add_rate_percent = random.choice(list_of_add_rates)
 				new_add = ((new_change_rate_percent / 100) * disk_used) / (1024 ** 3)
-				while 
-				mount = f"{psutil.disk_partitions()[0].mountpoint}"[0]
-				volume_data = {}
-				volume_data.update({f'{mount}':''})
-				volume_data["mount"] =  {"data_churn_rate": 0.1, "path": "scratch", "max_fragment_blocks": 512, "initial_usage": 1, "data_growth_rate": 1, "min_fragment_blocks": 128, "static_io_load": 1, "fragment": false, "database": {"updates_per_hour": 0, "queries_per_hour": 0, "inserts_per_hour": 0}}}
-				volume_data["mount"]["data_churn_rate"] = new_change
-				volume_data["mount"]["initial_usage"] = set_used_space
-				volume_data["mount"]["data_growth_rate"] = new_add
-				if os.path.exists(f"{mount}"+"/scratch"):
+				#mount = f"{psutil.disk_partitions()[0].mountpoint}"[0]
+				volume_data[f"{disk.mountpoint}"] =  {"data_churn_rate": 0.1, "path": "scratch", "max_fragment_blocks": 512, "initial_usage": 1, "data_growth_rate": 1, "min_fragment_blocks": 128, "static_io_load": 1, "fragment": false, "database": {"updates_per_hour": 0, "queries_per_hour": 0, "inserts_per_hour": 0}}}
+				volume_data[f"{disk.mountpoint}"]["data_churn_rate"] = new_change
+				volume_data[f"{disk.mountpoint}"]["initial_usage"] = set_used_space
+				volume_data[f"{disk.mountpoint}"]["data_growth_rate"] = new_add
+				if os.path.exists(f"{disk.mountpoint}"+"/scratch"):
 					continue
 				else:
-					os.mkdir(f"{mount}"+"/scratch")
+					os.mkdir(f"{disk.mountpoint}"+"/scratch")
 				profile["params"]["volumes"] = volume_data
-
 				list_of_cpu_load = np.linspace(minimum_cpu_load_percent, maximum_cpu_load_percent, number_of_profiles)
 				new_cpu_load = random.choice(list_of_cpu_load)
 				profile["params"]["cpu_load"] = new_cpu_load
@@ -76,6 +74,7 @@ while True:
 				new_ram_load = random.choice(list_of_ram_load)
 				profile["params"]["ram_load"] = new_ram_load
 				if disk == psutil.disk_partitions()[-1]:
+					profile["params"]["volumes"] = volume_data
 					print("Changing Usage Profile!")
 					response = requests.post(f"{ip_address_port}", headers=headers, data=str(profile))
 					time.sleep(1)
@@ -83,7 +82,10 @@ while True:
 					response = requests.post(f"{ip_address_port}", headers=headers, data=get)
 					if response.ok:
 						print("Success :)")
-					time.sleep(change_every_x_hours*60*60)
+						volume_data = {}
+						time.sleep(change_every_x_hours*60*60)
+					else:
+						print("Bad Response :(")
 	except requests.RequestException as e:
 		print("Request Failed: %s" % e)
 		time.sleep(1)
