@@ -3,7 +3,8 @@
 **Step 1:**
 
 Enable diskperf in TaskManager if you haven't already; useful to monitor changes to system.
-> diskperf -Y
+
+    - diskperf -Y
 
 **Step 2:**
 
@@ -22,11 +23,12 @@ Download and unpack from git repo
 **Step 4:**
 
 I could write this as one command but where's the fun in that.
-> "Win+R", type powershell and hit enter
 
-> "cd <directory of where you moved downloaded files>"
+    - "Win+R", type powershell and hit enter
 
-> "python -i local.py"
+    - "cd <directory of where you moved downloaded files>"
+
+    - "python -i local.py"
 
 **Step 5:**
 
