@@ -10,9 +10,8 @@ ip_address_port = 'http://127.0.0.1:5000/'
 headers = {'Content-Type': 'application/json'}
 
 if os.path.exists(f"{os.getcwd()}"+"/config.json"):
-		with open(f"{os.getcwd()}"+"/config.json", "r") as f:
-			config = json.load(f)
-
+	with open(f"{os.getcwd()}"+"/config.json", "r") as f:
+		config = json.load(f)
 	wanted_used_percent = config["volumes"]["set_used_space_%"]
 	minimum_change_rate_percent = config["volumes"]["min_change_%"]
 	maximum_change_rate_percent = config["volumes"]["max_change_%"]
