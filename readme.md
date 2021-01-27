@@ -2,9 +2,9 @@
 
 **Step 1:**
 
-Enable diskperf in TaskManager if you haven't already; useful to monitor changes to system.
+Let's enable diskperf for an easier time...
 
-    - From elevated command prompt (aka "Win+R", type cmd and hit enter), run "diskperf -Y"
+    - From elevated cmd, "diskperf -Y"
 
 **Step 2:**
 
@@ -22,14 +22,32 @@ Download and unpack from git repo
 
 **Step 4:**
 
-I could write this as one command but where's the fun in that.
+Install PIP and Dependencies
 
-    - "Win+R", type powershell and hit enter
+    - [Download PIP](https://bootstrap.pypa.io/get-pip.py)
 
-    - "cd <directory of where you moved downloaded files>"
+    - cd in elevated powershell to download dir
 
-    - "python -i local.py"
+    - "python get-pip.py"
+
+    - cd in elevated power shell to downloaded git repo
+
+    - python -m pip install -r requirements.txt
 
 **Step 5:**
 
+Run script!
+
+    - "python -i local.py"
+
+**Step X:**
+
 Sit back and have a cuppa :coffee:
+
+**Step Y:**
+
+What the heck is an "elevated prompt"?
+
+    - Hit "Win + R" and type either powershell __or__ cmd
+
+    - Magic an "As Administrator" prompt :)
