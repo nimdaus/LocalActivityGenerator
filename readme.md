@@ -1,4 +1,4 @@
-###Local Activity Generator aka 'LAG'
+###Local Activity Generator aka 'LAG'###
 
 ![meme](/doc_asset/LAG.jpg)
 
