@@ -10,7 +10,7 @@
     "max_ram_load_%": 60
     },
     "volumes":{
-        "skip_drives": ["D:\\", "E:\\"],
+        "skip_drives": ["D:", "E:"],
         "set_used_space_%": 40,
         "min_change_%": 3,
         "max_change_%": 6,
