@@ -1,7 +1,8 @@
 {
     "preferences":{
         "number_of_change_profiles": 4,
-        "change_every_x_hours": 4
+        "change_every_x_hours": 3,
+        "duration_hours": 10
     },
     "system":{
     "min_cpu_load_%": 10,

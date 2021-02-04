@@ -40,19 +40,20 @@ else:
 
 profile = {"id": 1, "jsonrpc": "2.0","method":"update_config","params":{"allow_windows_updates": False, "log_level": "INFO", "agent_version": "latest", "cpu_load": 1, "dtc_config": {}, "agent_install_args": [], "volumes": {"C": {"data_churn_rate": 0.1, "path": "scratch", "max_fragment_blocks": 512, "initial_usage": 1, "data_growth_rate": 1, "min_fragment_blocks": 128, "static_io_load": 1, "fragment": False, "database": {"updates_per_hour": 0, "queries_per_hour": 0, "inserts_per_hour": 0}}}, "ram_load": 1, "extra_ca_cert": "", "database_version": "", "agent_config": {}, "agent_type": "", "dtc_rmm_token": "", "format_volumes": [], "agent_auto_upgrade": False}}
 volume_data = {}
-counter = 0
+disk_counter = 0
+duration_counter = 0
 
-while True:
+while duration_counter < config["preferences"]["duration_hours"]:
 	try:
 		for disk in psutil.disk_partitions():
 			if 'cdrom' in disk.opts:
-				counter += 1
+				disk_counter += 1
 				pass
 			elif disk.mountpoint in skip_drives:
-				counter += 1
+				disk_counter += 1
 				pass
 			else:
-				counter += 1
+				disk_counter += 1
 				disk_total = psutil.disk_usage(disk.mountpoint).total
 				disk_used = psutil.disk_usage(disk.mountpoint).used
 				set_used_space = ((wanted_used_percent / 100) * disk_total) / (1024 ** 3)
@@ -77,8 +78,8 @@ while True:
 				list_of_ram_load = np.linspace(minimum_ram_load_percent, maximum_ram_load_percent, number_of_change_profiles)
 				new_ram_load = random.choice(list_of_ram_load)
 				profile["params"]["ram_load"] = new_ram_load
-				if counter == len(psutil.disk_partitions()):
-					counter = 0
+				if disk_counter == len(psutil.disk_partitions()):
+					disk_counter = 0
 					profile["params"]["volumes"] = volume_data
 					response = requests.post(f"{ip_address_port}", headers=headers, data=str(profile))
 					time.sleep(1)
@@ -88,6 +89,7 @@ while True:
 						print(f"Success! Waiting {change_every_x_hours}Hours until next change")
 						volume_data = {}
 						time.sleep(change_every_x_hours*60*60)
+						duration_counter +=1
 					else:
 						print("Bad Response :(")
 				else:
