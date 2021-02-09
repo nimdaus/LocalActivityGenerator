@@ -19,7 +19,7 @@
 
 * Manages scheduling AND stepping
 
-* CURRENTLY ONLY "24 HOUR" - simple improvement I just haven't got to yet.
+* NOW supports a duration
 
 ![meme](/doc_asset/LAG.jpg)
 
