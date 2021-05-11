@@ -32,9 +32,10 @@ else:
 	quit()
 
 if os.path.exists(f"{os.getcwd()}"+"/Binary/data-generator.exe"):
-	print("Found Binary... Starting up.")
+	print("Found Binary... Starting Generator.")
 	Popen(f"{os.getcwd()}"+"/Binary/data-generator.exe", creationflags=CREATE_NEW_CONSOLE)
-	time.sleep(4)
+	time.sleep(30)
+	print("Starting Generator Schedule.")
 else:
 	print("Missing Generator!")
 
