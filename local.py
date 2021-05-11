@@ -78,7 +78,8 @@ while duration_counter < config["preferences"]["duration_hours"]:
 				list_of_ram_load = np.linspace(minimum_ram_load_percent, maximum_ram_load_percent, number_of_change_profiles)
 				new_ram_load = random.choice(list_of_ram_load)
 				profile["params"]["ram_load"] = new_ram_load
-				if disk_counter == len(psutil.disk_partitions()):
+				total_disks = len(psutil.disk_partitions()) -1
+				if disk_counter == total_disks:
 					disk_counter = 0
 					profile["params"]["volumes"] = volume_data
 					response = requests.post(f"{ip_address_port}", headers=headers, data=str(profile))
